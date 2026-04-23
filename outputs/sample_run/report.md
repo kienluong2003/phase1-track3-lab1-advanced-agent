@@ -1,0 +1,38 @@
+# Lab 16 Benchmark Report
+
+## Metadata
+- Dataset: hotpot_mini.json
+- Mode: mock
+- Records: 200
+- Agents: react, reflexion
+
+## Summary
+| Metric | ReAct | Reflexion | Delta |
+|---|---:|---:|---:|
+| EM | 0.94 | 0.96 | 0.02 |
+| Avg attempts | 1 | 1.11 | 0.11 |
+| Avg token estimate | 302.97 | 336.78 | 33.81 |
+| Avg latency (ms) | 500 | 555 | 55 |
+
+## Failure modes
+```json
+{
+  "react": {
+    "none": 94,
+    "wrong_final_answer": 6
+  },
+  "reflexion": {
+    "none": 96,
+    "wrong_final_answer": 4
+  }
+}
+```
+
+## Extensions implemented
+- structured_evaluator
+- reflection_memory
+- benchmark_report_json
+- mock_mode_for_autograding
+
+## Discussion
+Reflexion helps when the first attempt stops after the first hop or drifts to a wrong second-hop entity. The tradeoff is higher attempts, token cost, and latency. In a real report, students should explain when the reflection memory was useful, which failure modes remained, and whether evaluator quality limited gains.
